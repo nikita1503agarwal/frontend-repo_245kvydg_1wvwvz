@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,42 +7,100 @@
 @layer base {
   :root {
     --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-geist: 'Geist', system-ui, sans-serif;
-    --font-geist-mono: 'Geist Mono', monospace;
-    --font-mona: 'Mona Sans', system-ui, sans-serif;
-    --font-ibm-plex: 'IBM Plex Sans', system-ui, sans-serif;
-    --font-manrope: 'Manrope', system-ui, sans-serif;
+    --font-press: 'Press Start 2P', monospace;
   }
 
   html {
     font-family: var(--font-sans);
     font-feature-settings: "rlig" 1, "calt" 1;
+    background: #06150f;
   }
 
   body {
-    @apply antialiased;
+    @apply antialiased text-emerald-100;
+    background:
+      radial-gradient(1200px 600px at 20% -10%, rgba(16,185,129,0.10), transparent 60%),
+      radial-gradient(1000px 500px at 110% 110%, rgba(6,95,70,0.12), transparent 60%),
+      linear-gradient(180deg, #06150f 0%, #020807 100%);
+    position: relative;
+    min-height: 100vh;
   }
 }
 
-/* Custom utility classes for shadcn/ui patterns */
+/* 16-bit utilities */
 @layer utilities {
-  .animate-in {
-    animation-name: animateIn;
-    animation-duration: 350ms;
-    --tw-enter-opacity: initial;
-    --tw-enter-scale: initial;
-    --tw-enter-rotate: initial;
-    --tw-enter-translate-x: initial;
-    --tw-enter-translate-y: initial;
+  .pixel-font { font-family: var(--font-press); letter-spacing: 0.02em; }
+  .pixelate { image-rendering: pixelated; }
+
+  /* chunky pixel shadow */
+  .pixel-shadow {
+    box-shadow:
+      0 0 0 2px rgba(16,185,129,0.35) inset,
+      0 4px 0 0 rgba(15, 118, 110, 0.8);
   }
 
-  .animate-out {
-    animation-name: animateOut;
-    animation-duration: 350ms;
-    --tw-exit-opacity: initial;
-    --tw-exit-scale: initial;
-    --tw-exit-rotate: initial;
-    --tw-exit-translate-x: initial;
-    --tw-exit-translate-y: initial;
+  /* emerald glow */
+  .glow-emerald { box-shadow: 0 0 18px rgba(16,185,129,0.35), 0 0 42px rgba(16,185,129,0.18); }
+
+  /* scanline/CRT overlay */
+  .crt::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.20) 0px,
+        rgba(0,0,0,0.20) 1px,
+        rgba(0,0,0,0.00) 2px,
+        rgba(0,0,0,0.00) 3px
+      );
+    mix-blend-mode: multiply;
   }
+  .crt::after {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none;
+    background: radial-gradient(80% 60% at 50% 40%, rgba(0,0,0,0) 0%, rgba(0,0,0,0.35) 100%);
+  }
+
+  /* pixel border using multiple box-shadows to simulate 1px steps */
+  .pixel-border {
+    position: relative;
+    border: 2px solid rgba(16,185,129,0.35);
+  }
+  .pixel-border::before {
+    content: '';
+    position: absolute; inset: 0;
+    outline: 1px solid rgba(16,185,129,0.18);
+    filter: drop-shadow(0 0 2px rgba(16,185,129,0.25));
+    pointer-events: none;
+  }
+
+  /* dithered background block */
+  .dither-bg {
+    background-image:
+      radial-gradient(circle at 0 0, rgba(16,185,129,0.10) 0, rgba(16,185,129,0.10) 2px, transparent 2px),
+      radial-gradient(circle at 4px 4px, rgba(16,185,129,0.06) 0, rgba(16,185,129,0.06) 1px, transparent 1px);
+    background-size: 8px 8px, 8px 8px;
+    background-color: rgba(2, 8, 7, 0.85);
+  }
+
+  .btn-8bit {
+    @apply inline-flex items-center justify-center px-5 py-3 font-semibold text-slate-900 bg-emerald-500 hover:bg-emerald-400 transition;
+    border: 2px solid #34d399;
+    box-shadow: 0 4px 0 #065f46, 0 0 18px rgba(16,185,129,0.25);
+  }
+  .btn-8bit:active { transform: translateY(2px); box-shadow: 0 2px 0 #065f46; }
+
+  .btn-8bit-ghost {
+    @apply inline-flex items-center justify-center px-5 py-3 text-emerald-200 hover:bg-emerald-400/10 transition;
+    border: 2px solid rgba(16,185,129,0.35);
+    box-shadow: 0 2px 0 rgba(6,95,70,0.8);
+  }
+
+  .card-8bit { @apply rounded-xl bg-slate-950/70; border: 2px solid rgba(16,185,129,0.35); box-shadow: 0 6px 0 rgba(6,95,70,0.7), 0 0 24px rgba(16,185,129,0.2); }
+
+  .input-8bit { @apply w-full px-3 py-2 bg-slate-950 text-emerald-100; border: 2px solid rgba(16,185,129,0.35); }
+  .input-8bit:focus { outline: none; box-shadow: 0 0 0 3px rgba(16,185,129,0.25); }
 }

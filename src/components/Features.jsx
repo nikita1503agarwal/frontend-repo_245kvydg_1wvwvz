@@ -3,7 +3,7 @@ import { Shield, Clock4, Sparkles, HeartHandshake } from 'lucide-react'
 const features = [
   {
     icon: Shield,
-    title: 'On the worker\'s side',
+    title: "On the worker's side",
     desc: 'Your data stays yours. Transparent hours, fair pay, and no dark patterns.'
   },
   {
@@ -25,14 +25,14 @@ const features = [
 
 export default function Features() {
   return (
-    <section className="relative">
+    <section id="features" className="relative">
       <div className="max-w-6xl mx-auto px-6 py-16">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((f, i) => (
-            <div key={i} className="rounded-xl border border-emerald-700/40 bg-emerald-950/50 p-5 shadow-xl hover:shadow-emerald-900/30 transition">
+            <div key={i} className="card-8bit p-5 hover:glow-emerald transition">
               <f.icon className="w-6 h-6 text-emerald-300" />
-              <h3 className="mt-3 font-semibold text-emerald-100">{f.title}</h3>
-              <p className="mt-1 text-sm text-emerald-300/80">{f.desc}</p>
+              <h3 className="mt-3 font-semibold text-emerald-100 pixel-font">{f.title}</h3>
+              <p className="mt-2 text-sm text-emerald-300/80">{f.desc}</p>
             </div>
           ))}
         </div>
