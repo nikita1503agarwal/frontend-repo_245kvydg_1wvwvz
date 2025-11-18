@@ -1,14 +1,37 @@
 import { motion } from 'framer-motion'
+import { PixelTree, PixelSoldier } from './Sprites'
 
 export default function Hero() {
   return (
     <section className="relative overflow-hidden">
+      {/* Ambient glows and pixel texture */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden>
         <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-emerald-900/40 blur-3xl"></div>
         <div className="absolute -bottom-32 -right-32 w-[32rem] h-[32rem] rounded-full bg-teal-900/40 blur-3xl"></div>
         <div className="absolute inset-0 opacity-[0.03] mix-blend-soft-light pixelate" style={{backgroundImage:"url('https://i.imgur.com/9lT9f8o.png')", backgroundSize:'64px 64px'}}></div>
       </div>
-      <div className="max-w-6xl mx-auto px-6 pt-24 pb-16">
+
+      {/* Foreground pixel landscape */}
+      <div className="absolute inset-x-0 bottom-0 h-28 select-none pointer-events-none">
+        {/* ground strip */}
+        <div className="absolute inset-x-0 bottom-0 h-2 bg-[linear-gradient(90deg,#052e2b_0%,#09443b_50%,#052e2b_100%)] shadow-[0_-4px_0_0_rgba(0,0,0,0.25)_inset]" />
+        {/* trees layer */}
+        <div className="absolute inset-x-0 bottom-2 flex justify-between px-6">
+          <PixelTree size={56} />
+          <PixelTree size={48} className="opacity-90" />
+          <PixelTree size={64} className="opacity-95" />
+          <PixelTree size={52} className="opacity-90" />
+          <PixelTree size={58} />
+        </div>
+        {/* soldiers layer */}
+        <div className="absolute inset-x-0 bottom-3 flex items-end justify-center gap-6">
+          <PixelSoldier size={48} variant="emerald" />
+          <PixelSoldier size={52} variant="teal" />
+          <PixelSoldier size={48} variant="steel" />
+        </div>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-6 pt-24 pb-24">
         <div className="grid md:grid-cols-2 gap-10 items-center">
           <div>
             <motion.h1
